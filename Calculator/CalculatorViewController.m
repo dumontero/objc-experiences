@@ -74,12 +74,26 @@
     [self.brain cleanAll];
     self.usuarioEstaNoMeioDaDigitacaoNumerica = NO;
     self.jaUsouDecimal = NO;
-    self.display.text = @"";
+    self.display.text = @"0";
     self.historico.text = @"";
 }
 
 - (IBAction)backspacePressed {
     if ([self.display.text length] > 0)
     self.display.text = [self.display.text substringToIndex:([self.display.text length]-1)];
+}
+
+- (IBAction)plusMinusPressed:(UIButton *)sender {
+    if (![self.display.text isEqualToString:@"0"]) {
+        if ([self.display.text hasPrefix:@"-"]) {
+            if ([self.display.text length] > 1) {
+                self.display.text = [self.display.text substringFromIndex:1];
+            } else {
+                self.display.text = @"0";
+            }
+        } else {
+            self.display.text = [@"-" stringByAppendingString:self.display.text];
+        }
+    }
 }
 @end
